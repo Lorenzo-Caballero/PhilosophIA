@@ -56,7 +56,7 @@ const App = () => {
 
             <Route element={<HomeRedirect />}>
               <Route path="/" element={<Home />} />
-              <Route path="/LennitaBB" element={<Home />} />
+              <Route path="/PhilosophIA" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/HugginFace" element={<HugginFace />} />
 

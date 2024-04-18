@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Lorenzo-Caballero.github.io/LennitaBB",
+  "homepage": "https://Lorenzo-Caballero.github.io/PhilosophIA",
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@huggingface/inference": "^2.6.7",
