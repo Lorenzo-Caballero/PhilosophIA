@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/PhilosophIA/static/css/main.8a9b29c1.css",
+    "main.js": "/PhilosophIA/static/js/main.002e1e8e.js",
+    "index.html": "/PhilosophIA/index.html",
+    "static/media/HambergurMenu.svg": "/PhilosophIA/static/media/HambergurMenu.9955f00c01a0988ffe2fb16386e78554.svg",
+    "main.8a9b29c1.css.map": "/PhilosophIA/static/css/main.8a9b29c1.css.map",
+    "main.002e1e8e.js.map": "/PhilosophIA/static/js/main.002e1e8e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a9b29c1.css",
+    "static/js/main.002e1e8e.js"
+  ]
+}
