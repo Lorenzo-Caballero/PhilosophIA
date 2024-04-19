@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/PhilosophIA/static/css/main.608d66e8.css",
-    "main.js": "/PhilosophIA/static/js/main.9f8ce710.js",
+    "main.js": "/PhilosophIA/static/js/main.b88c742f.js",
     "static/media/osito-removebg-preview (2).png": "/PhilosophIA/static/media/osito-removebg-preview (2).9d5794ba12ba66029dc8.png",
     "static/media/coneji-removebg-preview.png": "/PhilosophIA/static/media/coneji-removebg-preview.e434da83bb0cc48862ea.png",
     "static/media/portada.jpg": "/PhilosophIA/static/media/portada.89e1b203641e8c5b6a48.jpg",
@@ -9,10 +9,10 @@
     "index.html": "/PhilosophIA/index.html",
     "static/media/HambergurMenu.svg": "/PhilosophIA/static/media/HambergurMenu.9955f00c01a0988ffe2fb16386e78554.svg",
     "main.608d66e8.css.map": "/PhilosophIA/static/css/main.608d66e8.css.map",
-    "main.9f8ce710.js.map": "/PhilosophIA/static/js/main.9f8ce710.js.map"
+    "main.b88c742f.js.map": "/PhilosophIA/static/js/main.b88c742f.js.map"
   },
   "entrypoints": [
     "static/css/main.608d66e8.css",
-    "static/js/main.9f8ce710.js"
+    "static/js/main.b88c742f.js"
   ]
 }
