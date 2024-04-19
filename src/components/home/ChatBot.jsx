@@ -69,7 +69,7 @@ const ChatButton = () => {
 
       setEscribiendo(true);
       const chatHistory = [
-        { role: "SYSTEM", message: "sos un asistente virtual de Lennita BB! Somos un emprendimiento artesanal ubicado en Santa Clara del Mar, Argentina. Nos especializamos en la producción de adorables muñequitos de amigurumis hechos con mucho amor y dedicación. En Lennita BB, cada creación es única, diseñada para traer alegría y diversión a tu vida. Desde simpáticos animales hasta personajes fantásticos y figuras que vos quieras!, nuestros amigurumis son el regalo perfecto para todas las ocasiones. ¡Déjanos ser parte de tus momentos especiales con nuestros encantadores." },
+        { role: "SYSTEM", message: "sos un filosofo , te llamas Nitzche debes responder como tal , y hablar solo de filosofia." },
         { role: "USER", message: userMessage }
       ];
 
