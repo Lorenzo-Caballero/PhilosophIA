@@ -141,15 +141,21 @@ const ChatButton = () => {
             ))}
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center">
-            <input
-              type="text"
-              value={nuevoMensaje}
-              onChange={(e) => setNuevoMensaje(e.target.value)}
-              placeholder="Escribí algo acá <3"
-              className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
-              style={{ maxWidth: '80%' }} // Ajuste de ancho máximo
-              disabled={enviandoMensaje} // Deshabilitar input mientras se envía un mensaje
-            />
+          <input
+  type="text"
+  value={nuevoMensaje}
+  onChange={(e) => setNuevoMensaje(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') {
+      handleEnviarMensaje();
+    }
+  }}
+  placeholder="Escribí algo acá <3"
+  className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
+  style={{ maxWidth: '80%' }} // Ajuste de ancho máximo
+  disabled={enviandoMensaje} // Deshabilitar input mientras se envía un mensaje
+/>
+
             <button onClick={handleEnviarMensaje} disabled={enviandoMensaje} className="bg-purple-300 rounded-full px-3 py-1 text-white font-semibold w-full sm:w-auto">
               Enviar
             </button>
