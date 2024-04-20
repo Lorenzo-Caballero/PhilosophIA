@@ -1,13 +1,8 @@
 import React from 'react';
 
 import { motion } from 'framer-motion';
-
 import Hero from "../components/home/Hero";
-import Overview from '../components/home/Overview';
-import FeaturedProducts from '../components/home/FeaturedProducts';
-import TheServices from '../components/home/TheServices';
 import ChatBot from '../components/home/ChatBot';
-
 
 const containerVariants = {
   hidden: {
@@ -32,11 +27,10 @@ const Home = () => {
       animate="visible"
       exit="exit"
     >
+      <div className="chat-container">
+          <ChatBot />
+        </div>
       <Hero />
-      <Overview />
-      <FeaturedProducts />
-      <ChatBot/>
-      <TheServices />
     </motion.main>
   );
 };

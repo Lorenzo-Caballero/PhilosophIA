@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FiMessageSquare, FiX } from 'react-icons/fi';
 import { motion } from "framer-motion";
 import { CohereClient } from "cohere-ai";
 import axios from 'axios';
 import { HfInference } from '@huggingface/inference';
+import { FiX } from 'react-icons/fi';
+import Tales from "./Tales.jsx";
 
 const ChatButton = () => {
-  const [chatAbierto, setChatAbierto] = useState(false);
   const [mensajes, setMensajes] = useState([]);
   const [nuevoMensaje, setNuevoMensaje] = useState('');
   const [escribiendo, setEscribiendo] = useState(false);
   const [cohereToken, setCohereToken] = useState(null);
   const [enviandoMensaje, setEnviandoMensaje] = useState(false);
+  const [showChat, setShowChat] = useState(true);
+  const [reproduciendoVoz, setReproduciendoVoz] = useState(false);
+  const [mostrarPensando, setMostrarPensando] = useState(false); // Nuevo estado
   const mensajesRef = useRef(null);
 
   useEffect(() => {
@@ -22,7 +25,6 @@ const ChatButton = () => {
     try {
       const response = await axios.get('https://nodejs-restapi-mysql-fauno-production.up.railway.app/api/ai');
       const token = response.data;
-      console.log(token);
       setCohereToken(token);
     } catch (error) {
       console.error('Error al obtener el token de la API:', error);
@@ -46,12 +48,18 @@ const ChatButton = () => {
       ...prevMensajes,
       { texto: nuevoMensaje, origen: 'usuario' }
     ]);
-    setNuevoMensaje('');
     try {
+      setMostrarPensando(true); // Mostrar el mensaje "Pensando..." cuando el usuario envía un mensaje
       const respuestaCohere = await obtenerRespuestaCohere(nuevoMensaje);
-      reproducirAudio(respuestaCohere);
+      setMensajes(prevMensajes => [
+        ...prevMensajes,
+        { texto: respuestaCohere, origen: 'asistente' }
+      ]);
+      setNuevoMensaje('');
+      reproducirAudio(respuestaCohere); // Reproducir audio después de enviar el mensaje del usuario
     } finally {
       setEnviandoMensaje(false);
+      setMostrarPensando(false); // Ocultar el mensaje "Pensando..." cuando se completa el envío
     }
   };
 
@@ -69,7 +77,7 @@ const ChatButton = () => {
 
       setEscribiendo(true);
       const chatHistory = [
-        { role: "SYSTEM", message: "sos un filosofo , te llamas Nitzche debes responder como tal , y hablar solo de filosofia." },
+        { role: "SYSTEM", message: "sos un filosofo, un genio de la filosofia , y debes responder solo dentro del contexto filosofico o sociologico. tus preguntas deben ser concisas y breves , el usuario se llama Paloma asi que llamala asi" },
         { role: "USER", message: userMessage }
       ];
 
@@ -81,7 +89,6 @@ const ChatButton = () => {
       });
 
       setEscribiendo(false);
-      console.log(response);
       return response.text;
     } catch (error) {
       console.error('Error al llamar a Cohere AI:', error);
@@ -92,76 +99,65 @@ const ChatButton = () => {
 
   const reproducirAudio = async (text) => {
     try {
-      // Set your Hugging Face Token
       const hf = new HfInference("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");
 
       const response = await hf.textToSpeech({
         inputs: text,
-        model: "ylacombe/mms-spa-finetuned-argentinian-monospeaker",
-        language: "es", // Se corrige el typo "lenguage" a "language"
+        model: "ylacombe/mms-spa-finetuned-chilean-monospeaker",
+        config_name: "male",
+        language: "es",
       });
       const audioElement = new Audio(URL.createObjectURL(response));
       audioElement.play();
+      audioElement.addEventListener('ended', () => {
+        setReproduciendoVoz(false);
+      });
+      setReproduciendoVoz(true); // Establecer reproduciendoVoz en true al iniciar la reproducción
     } catch (error) {
       console.error('Error al convertir texto a audio:', error);
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleEnviarMensaje();
-    }
-  };
-
-  const handleChatToggle = () => {
-    setChatAbierto(!chatAbierto);
-  };
-
-  const handleCloseChat = () => {
-    setChatAbierto(false);
-  };
-
   return (
-    <div className="fixed bottom-6 right-6" style={{ zIndex: 9999 }}>
-      <button onClick={handleChatToggle} className={`flex items-center justify-center bg-purple-300 rounded-full w-12 h-12 ${chatAbierto ? 'hidden' : ''}`}>
-        <FiMessageSquare className="text-white text-2xl" />
-      </button>
-      {chatAbierto && (
-        <div className="bg-purple-100 p-4 rounded-t-lg shadow-lg w-80">
-          <div className="flex justify-between mb-2">
-            <button onClick={handleCloseChat}><FiX className="text-gray-600" /></button>
-          </div>
-          <div ref={mensajesRef} className="h-60 overflow-y-auto mb-2">
+    <div className="relative">
+      {showChat && (
+        <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2">
+          <div ref={mensajesRef} className="h-64 sm:h-36  mb-4">
             {mensajes.map((mensaje, index) => (
-              <div key={index} className={`mb-2 ${mensaje.origen === 'usuario' ? 'text-right' : 'text-left'} px-4 py-2 rounded-lg bg-purple-200 text-gray-800`}>
-                <strong>{mensaje.origen === 'usuario' ? 'Tú' : 'Asistente PhilosophIA'}</strong>: {mensaje.texto}
-              </div>
+              mensaje.origen === 'usuario' && (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 1, y: 20 }}
+                  animate={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className={`bg-purple-200 rounded-lg text-gray-800 py-2 px-4 mb-2`}
+                >
+                  {mensaje.texto}
+                </motion.div>
+              )
             ))}
-            {escribiendo && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="mb-2 text-left px-4 py-2 rounded-lg bg-purple-200"
-              >
-                <strong>Asistente PhilosophIA</strong>: ...
-              </motion.div>
-            )}
           </div>
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row justify-between items-center">
             <input
               type="text"
               value={nuevoMensaje}
               onChange={(e) => setNuevoMensaje(e.target.value)}
-              onKeyPress={handleKeyPress}
               placeholder="Escribí algo acá"
-              className="flex-1 border rounded-full px-4 py-2 outline-none"
-              disabled={enviandoMensaje}
+              className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
+              style={{ maxWidth: '80%' }} // Ajuste de ancho máximo
+              disabled={enviandoMensaje} // Deshabilitar input mientras se envía un mensaje
             />
-            <button onClick={handleEnviarMensaje} disabled={enviandoMensaje} className="ml-2 bg-purple-300 rounded-full px-4 py-2 text-white font-semibold">Enviar</button>
+            <button onClick={handleEnviarMensaje} disabled={enviandoMensaje} className="bg-purple-300 rounded-full px-3 py-1 text-white font-semibold w-full sm:w-auto">
+              Enviar
+            </button>
           </div>
         </div>
       )}
+      {mostrarPensando && <motion.div className="absolute top-0 right-0 mt-4 mr-4 bg-gray-800 bg-opacity-50 text-white rounded-full px-4 py-2 z-10" style={{ zIndex: 1 }}>
+        Pensando...
+      </motion.div>}
+      <Tales  />
     </div>
   );
 };

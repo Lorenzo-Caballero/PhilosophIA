@@ -69,15 +69,7 @@ const MainNavigation = () => {
             >
               {/* <NavLink to='/'><img src={Logo} alt="" /></NavLink> */}
               <NavLink to="/">
-                <motion.img
-                  src={conejita}
-                  alt="Machine Tattoo"
-                  height="50"
-                  width="50"
-                  variants={imageVariants}
-                  initial="hidden"
-                  animate="visible"
-                />
+              
               </NavLink>
             </motion.div>
             <motion.div
