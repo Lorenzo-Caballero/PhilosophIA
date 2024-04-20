@@ -25,6 +25,7 @@ const ChatButton = () => {
     try {
       const response = await axios.get('https://nodejs-restapi-mysql-fauno-production.up.railway.app/api/ai');
       const token = response.data;
+      console.log(token);
       setCohereToken(token);
     } catch (error) {
       console.error('Error al obtener el token de la API:', error);
@@ -89,6 +90,7 @@ const ChatButton = () => {
       });
 
       setEscribiendo(false);
+      console.log(response);
       return response.text;
     } catch (error) {
       console.error('Error al llamar a Cohere AI:', error);
@@ -121,8 +123,8 @@ const ChatButton = () => {
   return (
     <div className="relative">
       {showChat && (
-        <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2">
-          <div ref={mensajesRef} className="h-64 sm:h-36  mb-4">
+  <div className="fixed bottom-40 left-1/2 transform -translate-x-1/2">
+  <div ref={mensajesRef} className="h-64 sm:h-36  mb-4">
             {mensajes.map((mensaje, index) => (
               mensaje.origen === 'usuario' && (
                 <motion.div
@@ -154,10 +156,17 @@ const ChatButton = () => {
           </div>
         </div>
       )}
-      {mostrarPensando && <motion.div className="absolute top-0 right-0 mt-4 mr-4 bg-gray-800 bg-opacity-50 text-white rounded-full px-4 py-2 z-10" style={{ zIndex: 1 }}>
-        Pensando...
-      </motion.div>}
-      <Tales  />
+{mostrarPensando && (
+  <motion.div
+    className="absolute top-40 lg:top-40 right-60 lg:right-60 sm:right-60 sm:top-60 lg:mt-2 sm:mt-4 mr-4 bg-gray-800 bg-opacity-50 text-white rounded-full px-2 py-1 z-10 text-xs sm:text-sm md:text-base lg:text-lg"
+    style={{ zIndex: 1 }}
+  >
+    Pensando...
+  </motion.div>
+)}
+
+
+      <Tales  /> {/* Pasar el estado reproduciendoVoz como prop */}
     </div>
   );
 };
