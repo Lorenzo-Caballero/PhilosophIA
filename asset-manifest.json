@@ -1,18 +1,15 @@
 {
   "files": {
-    "main.css": "/PhilosophIA/static/css/main.608d66e8.css",
-    "main.js": "/PhilosophIA/static/js/main.fb0e1950.js",
-    "static/media/osito-removebg-preview (2).png": "/PhilosophIA/static/media/osito-removebg-preview (2).9d5794ba12ba66029dc8.png",
-    "static/media/coneji-removebg-preview.png": "/PhilosophIA/static/media/coneji-removebg-preview.e434da83bb0cc48862ea.png",
-    "static/media/portada.jpg": "/PhilosophIA/static/media/portada.89e1b203641e8c5b6a48.jpg",
-    "static/media/conejimarron.png": "/PhilosophIA/static/media/conejimarron.70aaa689a2f1940829ed.png",
+    "main.css": "/PhilosophIA/static/css/main.30ac1031.css",
+    "main.js": "/PhilosophIA/static/js/main.4211c3af.js",
+    "static/media/tales.png": "/PhilosophIA/static/media/tales.da79630a35187bbec633.png",
+    "static/media/galaxy.jpg": "/PhilosophIA/static/media/galaxy.c739d7cbfb8441b54f9b.jpg",
     "index.html": "/PhilosophIA/index.html",
-    "static/media/HambergurMenu.svg": "/PhilosophIA/static/media/HambergurMenu.9955f00c01a0988ffe2fb16386e78554.svg",
-    "main.608d66e8.css.map": "/PhilosophIA/static/css/main.608d66e8.css.map",
-    "main.fb0e1950.js.map": "/PhilosophIA/static/js/main.fb0e1950.js.map"
+    "main.30ac1031.css.map": "/PhilosophIA/static/css/main.30ac1031.css.map",
+    "main.4211c3af.js.map": "/PhilosophIA/static/js/main.4211c3af.js.map"
   },
   "entrypoints": [
-    "static/css/main.608d66e8.css",
-    "static/js/main.fb0e1950.js"
+    "static/css/main.30ac1031.css",
+    "static/js/main.4211c3af.js"
   ]
 }
