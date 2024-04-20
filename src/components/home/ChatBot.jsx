@@ -14,7 +14,7 @@ const ChatButton = () => {
   const [enviandoMensaje, setEnviandoMensaje] = useState(false);
   const [showChat, setShowChat] = useState(true);
   const [reproduciendoVoz, setReproduciendoVoz] = useState(false);
-  const [mostrarPensando, setMostrarPensando] = useState(false); // Nuevo estado
+  const [mostrarPensando, setMostrarPensando] = useState(false);
   const mensajesRef = useRef(null);
 
   useEffect(() => {
@@ -50,17 +50,17 @@ const ChatButton = () => {
       { texto: nuevoMensaje, origen: 'usuario' }
     ]);
     try {
-      setMostrarPensando(true); // Mostrar el mensaje "Pensando..." cuando el usuario envía un mensaje
+      setMostrarPensando(true);
       const respuestaCohere = await obtenerRespuestaCohere(nuevoMensaje);
       setMensajes(prevMensajes => [
         ...prevMensajes,
         { texto: respuestaCohere, origen: 'asistente' }
       ]);
       setNuevoMensaje('');
-      reproducirAudio(respuestaCohere); // Reproducir audio después de enviar el mensaje del usuario
+      reproducirAudio(respuestaCohere);
     } finally {
       setEnviandoMensaje(false);
-      setMostrarPensando(false); // Ocultar el mensaje "Pensando..." cuando se completa el envío
+      setMostrarPensando(false);
     }
   };
 
@@ -106,16 +106,17 @@ const ChatButton = () => {
 
       const response = await hf.textToSpeech({
         inputs: text,
-        model: "ylacombe/mms-spa-finetuned-chilean-monospeaker",
+        model: "ylacombe/mms-spa-finetuned-colombian-monospeaker",
         config_name: "male",
         language: "es",
+        speed: 0.9, // Reducir la velocidad de reproducción
       });
       const audioElement = new Audio(URL.createObjectURL(response));
       audioElement.play();
       audioElement.addEventListener('ended', () => {
         setReproduciendoVoz(false);
       });
-      setReproduciendoVoz(true); // Establecer reproduciendoVoz en true al iniciar la reproducción
+      setReproduciendoVoz(true);
     } catch (error) {
       console.error('Error al convertir texto a audio:', error);
     }
@@ -124,8 +125,8 @@ const ChatButton = () => {
   return (
     <div className="relative">
       {showChat && (
-  <div className="fixed bottom-60 lg:bottom-20 left-1/2 transform -translate-x-1/2">
-  <div ref={mensajesRef} className="h-64 sm:h-36  mb-4">
+        <div className="fixed bottom-60 lg:bottom-20 left-1/2 transform -translate-x-1/2">
+          <div ref={mensajesRef} className="h-64 sm:h-36  mb-4">
             {mensajes.map((mensaje, index) => (
               mensaje.origen === 'usuario' && (
                 <motion.div
@@ -142,38 +143,35 @@ const ChatButton = () => {
             ))}
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center">
-          <input
-  type="text"
-  value={nuevoMensaje}
-  onChange={(e) => setNuevoMensaje(e.target.value)}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter') {
-      handleEnviarMensaje();
-    }
-  }}
-  placeholder="Escribí algo acá <3"
-  className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
-  style={{ maxWidth: '80%' }} // Ajuste de ancho máximo
-  disabled={enviandoMensaje} // Deshabilitar input mientras se envía un mensaje
-/>
-
+            <input
+              type="text"
+              value={nuevoMensaje}
+              onChange={(e) => setNuevoMensaje(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleEnviarMensaje();
+                }
+              }}
+              placeholder="Escribí algo acá <3"
+              className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
+              style={{ maxWidth: '80%' }}
+              disabled={enviandoMensaje}
+            />
             <button onClick={handleEnviarMensaje} disabled={enviandoMensaje} className="bg-purple-300 rounded-full px-3 py-1 text-white font-semibold w-full sm:w-auto">
               Enviar
             </button>
           </div>
         </div>
       )}
-{mostrarPensando && (
-  <motion.div
-    className="absolute top-40 lg:top-40 right-60 lg:right-60 sm:right-60 sm:top-60 lg:mt-2 sm:mt-4 mr-4 bg-gray-800 bg-opacity-50 text-white rounded-full px-2 py-1 z-10 text-xs sm:text-sm md:text-base lg:text-lg"
-    style={{ zIndex: 1 }}
-  >
-    Pensando...
-  </motion.div>
-)}
-
-
-      <Tales  /> {/* Pasar el estado reproduciendoVoz como prop */}
+      {mostrarPensando && (
+        <motion.div
+          className="absolute top-40 lg:top-40 right-60 lg:right-60 sm:right-60 sm:top-60 lg:mt-2 sm:mt-4 mr-4 bg-gray-800 bg-opacity-50 text-white rounded-full px-2 py-1 z-10 text-xs sm:text-sm md:text-base lg:text-lg"
+          style={{ zIndex: 1 }}
+        >
+          Pensando...
+        </motion.div>
+      )}
+      <Tales />
     </div>
   );
 };
