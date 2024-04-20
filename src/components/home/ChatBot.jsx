@@ -123,7 +123,7 @@ const ChatButton = () => {
   return (
     <div className="relative">
       {showChat && (
-  <div className="fixed bottom-40 left-1/2 transform -translate-x-1/2">
+  <div className="fixed bottom-60 lg:bottom-20 left-1/2 transform -translate-x-1/2">
   <div ref={mensajesRef} className="h-64 sm:h-36  mb-4">
             {mensajes.map((mensaje, index) => (
               mensaje.origen === 'usuario' && (

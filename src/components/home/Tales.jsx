@@ -18,7 +18,7 @@ const Tales = () => {
   };
 
   return (
-<div className={`fixed top-60 sm:top-74 left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}>
+<div className={`fixed lg:top-34 top-40 sm:top-60 left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}>
       <motion.div
         className="flex items-center justify-center"
         variants={imageVariants}
