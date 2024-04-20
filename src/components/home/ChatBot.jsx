@@ -78,13 +78,14 @@ const ChatButton = () => {
 
       setEscribiendo(true);
       const chatHistory = [
-        { role: "SYSTEM", message: "sos un filosofo, un genio de la filosofia , y debes responder solo dentro del contexto filosofico o sociologico. tus preguntas deben ser concisas y breves , el usuario se llama Paloma asi que llamala asi" },
+        { role: "SYSTEM", message: "sos un filosofo, un genio de la filosofia , y debes responder solo dentro del contexto filosofico o sociologico. tus preguntas deben ser concisas y breves , el usuario se llama Paloma asi que llamala asi, tienes 180 tokens para la respuesta que equivalen a 90 palabras, asi que concluye la respuesta dentro de esos tokens y dentro de ese rango de palabras. osea se breve pero explica bien" },
         { role: "USER", message: userMessage }
       ];
 
       const response = await cohere.chat({
         message: userMessage,
         model: "command-r-plus",
+        max_tokens:180,
         chat_history: chatHistory,
         language: "es",
       });
