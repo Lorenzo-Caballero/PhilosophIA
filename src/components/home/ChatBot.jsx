@@ -143,7 +143,7 @@ const ChatButton = () => {
               type="text"
               value={nuevoMensaje}
               onChange={(e) => setNuevoMensaje(e.target.value)}
-              placeholder="Escribí algo acá"
+              placeholder="Escribí algo acá <3"
               className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
               style={{ maxWidth: '80%' }} // Ajuste de ancho máximo
               disabled={enviandoMensaje} // Deshabilitar input mientras se envía un mensaje
