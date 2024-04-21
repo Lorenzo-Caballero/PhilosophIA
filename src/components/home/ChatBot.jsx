@@ -78,7 +78,7 @@ const ChatButton = () => {
 
       setEscribiendo(true);
       const chatHistory = [
-        { role: "SYSTEM", message: "sos un filosofo, un genio de la filosofia , y debes responder solo dentro del contexto filosofico o sociologico. tus preguntas deben ser concisas y breves , el usuario se llama Paloma asi que llamala asi, tienes 180 tokens para la respuesta que equivalen a 90 palabras, asi que concluye la respuesta dentro de esos tokens y dentro de ese rango de palabras. osea se breve pero explica bien" },
+        { role: "SYSTEM", message: "sos un filosofo, un genio de la filosofia , y debes responder solo dentro del contexto filosofico o sociologico. tus preguntas deben ser concisas y breves  , tienes 180 tokens para la respuesta que equivalen a 90 palabras, asi que concluye la respuesta dentro de esos tokens y dentro de ese rango de palabras. osea se breve pero explica bien" },
         { role: "USER", message: userMessage }
       ];
 
@@ -152,7 +152,7 @@ const ChatButton = () => {
                   handleEnviarMensaje();
                 }
               }}
-              placeholder="Escribí algo acá <3"
+              placeholder="Escribí algo acá"
               className="border rounded-full px-4 py-2 outline-none mb-2 sm:mb-0 w-full sm:w-4/5"
               style={{ maxWidth: '80%' }}
               disabled={enviandoMensaje}
